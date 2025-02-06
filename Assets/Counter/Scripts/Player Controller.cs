@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private GameManager gameManager;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +33,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!gameManager.isGameActive)
         {
+            //When isGameActive is false, the player should trigger sit animation and stop moving
+            collieAnim.SetBool("Sit_b", true);
             return;
         }
 
+        collieAnim.SetBool("Sit_b", false);
 
         deltaMove = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime;
         Vector3 relativeMove = focalPoint.transform.TransformDirection(deltaMove);
@@ -47,7 +51,7 @@ public class PlayerController : MonoBehaviour
         //Running Animation
         currentSpeed = playerRb.velocity.magnitude;
 
-        collieAnim.SetFloat("Speed_f", currentSpeed/5);
+        collieAnim.SetFloat("Speed_f", currentSpeed / 5);
 
         //Dog faces direction of movement
         if (playerRb.velocity != Vector3.zero)

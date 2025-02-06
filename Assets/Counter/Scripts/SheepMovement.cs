@@ -13,16 +13,21 @@ public class SheepMovement : MonoBehaviour
     private float currentSpeed;
 
     public float speed;
+    public float sheepAttractSpeed;
     [SerializeField] float turnSpeed;
     public float fleeDistance = 5;
     public float attractDistance = 10;
     public float groupedDistance = 1;
+
+    //Audio
+    private AudioSource sheepAudio;
 
     // Start is called before the first frame update
     void Start()
     {
         sheepRb = GetComponent<Rigidbody>();
         collie = GameObject.Find("Collie Player");
+        sheepAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,6 +40,10 @@ public class SheepMovement : MonoBehaviour
         if (Vector3.Distance(collie.transform.position, transform.position) < fleeDistance)
         {
             sheepRb.AddForce(-lookDirection * speed * Time.deltaTime);
+            if (sheepAudio.isPlaying == false)
+                {
+                    sheepAudio.Play();
+                }
         }
         else
         {
@@ -71,13 +80,14 @@ public class SheepMovement : MonoBehaviour
             }
         }
 
+        //Sheep group together
         if (sheepCount > 0)
         {
             averageSheepPosition /= sheepCount;
             if (Vector3.Distance(transform.position, averageSheepPosition) >= groupedDistance)
             {
                 Vector3 moveDirection = (averageSheepPosition - transform.position).normalized;
-                sheepRb.AddForce(moveDirection * speed * Time.deltaTime);
+                sheepRb.AddForce(moveDirection * sheepAttractSpeed * Time.deltaTime);
             }
         }
     }
