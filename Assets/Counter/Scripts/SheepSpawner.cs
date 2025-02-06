@@ -20,20 +20,21 @@ public class SheepSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sheepHerded == roundNumber)
-        {
-            roundNumber++;
-            SpawnSheepWave(roundNumber);
-        }
     }
 
     public void SheepHerded()
     {
         sheepHerded++;
+        if (sheepHerded >= roundNumber)
+        {
+            roundNumber++;
+            SpawnSheepWave(roundNumber);            
+        }
     }
 
     void SpawnSheepWave(int sheepToSpawn)
     {
+        sheepHerded = 0;
         for (int i = 0; i < sheepToSpawn; i++)
         {
             Instantiate(sheepPrefab, GenerateSpawnPos(), sheepPrefab.transform.rotation);

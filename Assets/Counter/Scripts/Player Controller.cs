@@ -16,17 +16,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float currentSpeed;
     [SerializeField] Vector3 deltaMove;
 
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!gameManager.isGameActive)
+        {
+            return;
+        }
+
         deltaMove = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime;
         playerRb.AddRelativeForce(deltaMove);
 
@@ -48,5 +54,6 @@ public class PlayerController : MonoBehaviour
         {
             collieAnim.SetFloat("Speed_f", 1f);
         }
+
     }
 }
