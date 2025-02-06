@@ -6,44 +6,56 @@ using UnityEngine;
 
 public class SheepMovement : MonoBehaviour
 {
-    //Variable
+    // Variables
     Rigidbody sheepRb;
     GameObject collie;
+    [SerializeField] Animator sheepAnim;
+    private float currentSpeed;
 
-    public float speed = 5;
+    public float speed;
+    [SerializeField] float turnSpeed;
     public float fleeDistance = 5;
     public float attractDistance = 10;
     public float groupedDistance = 1;
-
 
     // Start is called before the first frame update
     void Start()
     {
         sheepRb = GetComponent<Rigidbody>();
         collie = GameObject.Find("Collie Player");
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Calculate look direction
+        // Calculate look direction
         Vector3 lookDirection = (collie.transform.position - transform.position).normalized;
 
-        //Add force to move away from the collie if too close
+        // Add force to move away from the collie if too close
         if (Vector3.Distance(collie.transform.position, transform.position) < fleeDistance)
         {
-            sheepRb.AddForce(-lookDirection.normalized * speed * Time.deltaTime);
+            sheepRb.AddForce(-lookDirection * speed * Time.deltaTime);
         }
         else
         {
-            //Move towards other sheep
+            // Move towards other sheep
             MoveToOtherSheep();
         }
 
+        // Set rotation to face the direction of movement
+        if (sheepRb.velocity != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(sheepRb.velocity); 
+            sheepRb.rotation = Quaternion.Slerp(sheepRb.rotation, targetRotation, Time.deltaTime * turnSpeed);
+        }
+
+        //Running Animation
+        currentSpeed = sheepRb.velocity.magnitude;
+
+        sheepAnim.SetFloat("Speed_f", currentSpeed / 5);
     }
 
-    //Find objects with tag sheep
+    // Find objects with tag sheep
     private void MoveToOtherSheep()
     {
         Vector3 averageSheepPosition = Vector3.zero;
@@ -51,9 +63,9 @@ public class SheepMovement : MonoBehaviour
 
         foreach (GameObject sheep in GameObject.FindGameObjectsWithTag("Sheep"))
         {
-            if (sheep != this.gameObject && Vector3.Distance(transform.position,sheep.transform.position) < attractDistance) //Don't include self in average position & only add sheep within attractDistance
+            if (sheep != this.gameObject && Vector3.Distance(transform.position, sheep.transform.position) < attractDistance) // Don't include self in average position & only add sheep within attractDistance
             {
-                averageSheepPosition += sheep.transform.position; 
+                averageSheepPosition += sheep.transform.position;
                 sheepCount++;
             }
         }
@@ -66,9 +78,7 @@ public class SheepMovement : MonoBehaviour
                 Vector3 moveDirection = (averageSheepPosition - transform.position).normalized;
                 sheepRb.AddForce(moveDirection * speed * Time.deltaTime);
             }
-
         }
     }
-
 }
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4473608620037053720}
   - component: {fileID: 2848900072836636081}
   - component: {fileID: 7934552234093604031}
-  - component: {fileID: 7656415316522176174}
+  - component: {fileID: 4800034210339767010}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Sheep
@@ -126,12 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fe17a4fad6ed04ba09c1f82cad301a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sheepAnim: {fileID: 5726651439251618924}
   speed: 800
+  turnSpeed: 5
   fleeDistance: 5
   attractDistance: 10
   groupedDistance: 2
---- !u!65 &7656415316522176174
-BoxCollider:
+--- !u!135 &4800034210339767010
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -149,7 +151,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4531542093278080677
 PrefabInstance:
@@ -201,7 +203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8185963723970810569, guid: c36cdfacfaab1584c887c605bc8e7b2f, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8185963723970810582, guid: c36cdfacfaab1584c887c605bc8e7b2f, type: 3}
       propertyPath: animator
@@ -209,7 +211,7 @@ PrefabInstance:
       objectReference: {fileID: 5726651439251618924}
     - target: {fileID: 8185963723970810582, guid: c36cdfacfaab1584c887c605bc8e7b2f, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8185963723970810583, guid: c36cdfacfaab1584c887c605bc8e7b2f, type: 3}
       propertyPath: m_Name

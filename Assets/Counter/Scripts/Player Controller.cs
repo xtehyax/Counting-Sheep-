@@ -41,19 +41,9 @@ public class PlayerController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0, turn.x, 0);
 
         //Running Animation
-        float currentSpeed = playerRb.velocity.magnitude;
-        if (currentSpeed < 0.5f)
-        {
-            collieAnim.SetFloat("Speed_f", 0);
-        }
-        else if (currentSpeed >= 0.5f && speed < 1f)
-        {
-            collieAnim.SetFloat("Speed_f", 0.5f);
-        }
-        else
-        {
-            collieAnim.SetFloat("Speed_f", 1f);
-        }
+        currentSpeed = playerRb.velocity.magnitude;
+
+        collieAnim.SetFloat("Speed_f", currentSpeed/5);
 
     }
 }
