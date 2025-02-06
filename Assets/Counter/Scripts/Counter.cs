@@ -8,16 +8,16 @@ public class Counter : MonoBehaviour
 {
     public Text CounterText;
 
-    private int Count = 0;
+    public int sheepHerded;
 
     private void Start()
     {
-        Count = 0;
+        sheepHerded = 0;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Count += 1;
-        CounterText.text = "Count : " + Count;
+        sheepHerded = +1;
+        Debug.Log("Sheep in pen: " + sheepHerded);
     }
 }

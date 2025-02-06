@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SheepMovement : MonoBehaviour
@@ -12,6 +14,7 @@ public class SheepMovement : MonoBehaviour
     public float fleeDistance = 5;
     public float attractDistance = 10;
     public float groupedDistance = 1;
+
 
     // Start is called before the first frame update
     void Start()
@@ -66,4 +69,6 @@ public class SheepMovement : MonoBehaviour
 
         }
     }
+
 }
+
