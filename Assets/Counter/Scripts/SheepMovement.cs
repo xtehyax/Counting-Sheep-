@@ -45,7 +45,8 @@ public class SheepMovement : MonoBehaviour
         // Set rotation to face the direction of movement
         if (sheepRb.velocity != Vector3.zero)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(sheepRb.velocity); 
+            var velocity = new Vector3(sheepRb.velocity.x, 0, sheepRb.velocity.z);
+            Quaternion targetRotation = Quaternion.LookRotation(velocity); 
             sheepRb.rotation = Quaternion.Slerp(sheepRb.rotation, targetRotation, Time.deltaTime * turnSpeed);
         }
 

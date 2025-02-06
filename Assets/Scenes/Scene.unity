@@ -219,6 +219,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cc487e002327cb43995ca1871bd142e, type: 3}
+--- !u!1 &17885669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 17885670}
+  - component: {fileID: 17885672}
+  m_Layer: 0
+  m_Name: Focal Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &17885670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17885669}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.02, y: 0.55, z: 0.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1648811353}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &17885672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17885669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f298b24406deb754789246b47bbded18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 5
+  turn: {x: 0, y: 0}
 --- !u!1001 &32752545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1781,7 +1828,7 @@ MonoBehaviour:
   Title: {fileID: 1291056605}
   Timer: {fileID: 1607097993}
   Round: {fileID: 597440165}
-  time: 30
+  time: 120
   HerdedCount: {fileID: 2083888321}
   GameOver: {fileID: 312751459}
   TotalScore: {fileID: 131937374}
@@ -7679,7 +7726,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2053969191}
+  m_Father: {fileID: 17885670}
   m_LocalEulerAnglesHint: {x: 23.347, y: 0, z: 0}
 --- !u!1001 &1674502751
 PrefabInstance:
@@ -9123,11 +9170,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
-  turn: {x: 0, y: 0}
-  sensitivity: 3
+  turnSpeed: 8
   collieAnim: {fileID: 1622627594}
   currentSpeed: 0
   deltaMove: {x: 0, y: 0, z: 0}
+  focalPoint: {fileID: 17885672}
 --- !u!65 &2053969188
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9212,7 +9259,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1648811353}
   - {fileID: 1198286086}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10060,6 +10106,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 2135679470}
   - {fileID: 1536415860}
+  - {fileID: 17885670}
   - {fileID: 2053969191}
   - {fileID: 9429228}
   - {fileID: 1027046394}

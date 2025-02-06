@@ -19,6 +19,10 @@ public class SheepSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Debug.isDebugBuild && Input.GetKeyDown(KeyCode.P))
+        {
+            Instantiate(sheepPrefab, GenerateSpawnPos(), sheepPrefab.transform.rotation);
+        }
     }
 
     public void SpawnSheepWave(int roundNumber)
