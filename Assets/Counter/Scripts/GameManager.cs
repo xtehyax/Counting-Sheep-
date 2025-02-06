@@ -12,10 +12,14 @@ public class GameManager : MonoBehaviour
     //UI
     public TextMeshProUGUI Title;
     public TextMeshProUGUI Timer;
-    [SerializeField] int time = 100;
+    public TextMeshProUGUI Round;
+    [SerializeField] int time = 120;
     public TextMeshProUGUI HerdedCount;
 
     public GameObject GameOver;
+    public TextMeshProUGUI TotalScore;
+    public GameObject GameUI;
+    public GameObject StartScreen;
 
     //GameOver
     public bool isGameActive;
@@ -25,6 +29,12 @@ public class GameManager : MonoBehaviour
 
     //Restart
     public Button RestartButton;
+
+    //Round variables
+    public int sheepHerded;
+    public int roundNumber = 1;
+
+    public int totalSheepHerded;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +46,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateHerdedCount();
-        
+
     }
 
     //Countdown
@@ -46,7 +56,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             time--;
-            Timer.text = "Time: " + time;
+            Timer.text = $"{time}s";
         }
         EndGame();
     }
@@ -56,9 +66,9 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = true;
         StartCoroutine(CountDown());
-        Title.gameObject.SetActive(false);
-        PlayButton.gameObject.SetActive(false);
+        StartScreen.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        GameUI.gameObject.SetActive(true);
     }
 
     public void RestartGame()
@@ -70,14 +80,47 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         isGameActive = false;
+        GameUI.gameObject.SetActive(false);
         GameOver.gameObject.SetActive(true);
         RestartButton.gameObject.SetActive(true);
+        TotalScore.text = "You herded " + totalSheepHerded + " sheep!";
         Cursor.lockState = CursorLockMode.None; //Unlock cursor
+
     }
 
     //Sheep herded count
     public void UpdateHerdedCount()
     {
-        HerdedCount.text = "Herded: " + sheepSpawner.sheepHerded + "/" + sheepSpawner.roundNumber;
+        HerdedCount.text = "Sheep Left: " + (roundNumber - sheepHerded);
+    }
+
+    public void AddSheepHerded()
+    //destroy all sheep
+    //increment round number
+    //update round text
+    //spawn sheep wave
+    {
+        sheepHerded++;
+        if (sheepHerded >= roundNumber)
+        {
+            GameObject[] sheepArray = GameObject.FindGameObjectsWithTag("Sheep");
+            foreach (GameObject sheep in sheepArray)
+            {
+                Destroy(sheep);
+            }
+
+            roundNumber++;
+            UpdateRoundText();
+            time = 120;
+            sheepSpawner.SpawnSheepWave(roundNumber);
+        }
+    }
+
+    //Round Count
+    public void UpdateRoundText()
+    {
+        Round.text = "Round: " + roundNumber;
     }
 }
+
+

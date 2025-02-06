@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class PenTrigger : MonoBehaviour
 {
-    private SheepSpawner sheepSpawner;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        sheepSpawner = FindObjectOfType<SheepSpawner>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Sheep"))
         {
-            sheepSpawner.SheepHerded();
-            // remove sheep in the pen
-            Destroy(other.gameObject);
+            gameManager.AddSheepHerded();
+            gameManager.totalSheepHerded++;
+
         }
     }
 }

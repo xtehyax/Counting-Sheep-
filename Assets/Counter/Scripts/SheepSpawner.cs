@@ -6,15 +6,14 @@ public class SheepSpawner : MonoBehaviour
 {
     // Variables
     public GameObject sheepPrefab;
-    public int roundNumber = 1;
     public float spawnRange = 18;
-    public int sheepHerded;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        sheepHerded = 0;
-        SpawnSheepWave(roundNumber); // function call
+        gameManager = FindObjectOfType<GameManager>();
+        SpawnSheepWave(gameManager.roundNumber); // function call
     }
 
     // Update is called once per frame
@@ -22,20 +21,10 @@ public class SheepSpawner : MonoBehaviour
     {
     }
 
-    public void SheepHerded()
+    public void SpawnSheepWave(int roundNumber)
     {
-        sheepHerded++;
-        if (sheepHerded >= roundNumber)
-        {
-            roundNumber++;
-            SpawnSheepWave(roundNumber);            
-        }
-    }
-
-    void SpawnSheepWave(int sheepToSpawn)
-    {
-        sheepHerded = 0;
-        for (int i = 0; i < sheepToSpawn; i++)
+        gameManager.sheepHerded = 0;
+        for (int i = 0; i < roundNumber; i++)
         {
             Instantiate(sheepPrefab, GenerateSpawnPos(), sheepPrefab.transform.rotation);
         }
@@ -48,5 +37,14 @@ public class SheepSpawner : MonoBehaviour
 
         Vector3 randomPos = new Vector3(spawnPosX, 0.5f, spawnPosZ);
         return randomPos;
+    }
+
+    public void DestroyAllSheep()
+    {
+        GameObject[] sheepArray = GameObject.FindGameObjectsWithTag("Sheep");
+        foreach (GameObject sheep in sheepArray)
+        {
+            Destroy(sheep);
+        }
     }
 }
