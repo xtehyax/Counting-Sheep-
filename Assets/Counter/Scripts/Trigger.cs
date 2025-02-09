@@ -39,7 +39,6 @@ public class PenTrigger : MonoBehaviour
         if (gameManager.sheepInPen.Count >= 5)
         {
             Destroy(thisSheep);
-            gameManager.sheepInPen.Clear();
         }
     }
 
