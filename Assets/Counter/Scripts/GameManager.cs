@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     public int roundNumber = 1;
 
     public int totalSheepHerded;
+    //hold a list of sheep herded
+    public List<GameObject> sheepInPen = new List<GameObject>(); 
 
     // Sound
     [SerializeField] AudioSource backgroundMusic; // Add this line
