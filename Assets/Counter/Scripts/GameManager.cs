@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         StartScreen.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         GameUI.gameObject.SetActive(true);
+        
     }
 
     public void RestartGame()
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviour
         HerdedCount.text = "Sheep Left: " + (roundNumber - sheepHerded);
     }
 
-    public void AddSheepHerded()
+    public void AddSheepHerded() //new round
     {
         sheepHerded++;
         if (sheepHerded >= roundNumber)
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour
             roundNumber++;
             UpdateRoundText();
             time = 120;
+            sheepInPen.Clear();
             sheepSpawner.SpawnSheepWave(roundNumber);
         }
     }
